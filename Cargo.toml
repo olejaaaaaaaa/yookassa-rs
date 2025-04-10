@@ -1,0 +1,21 @@
+[package]
+name = "yookassa-rs"
+authors = ["Edgar <git@olejaaaaaaaa.com>"]
+description = "A library that wraps the yookassa api"
+repository = "https://github.com/olejaaaaaaaa/yookassa-rs/"
+keywords = ["yookassa", "yookassa-api"]
+categories = ["api-bindings", "web-programming::http-client"]
+documentation = "https://docs.rs/yookassa-rs"
+readme = "README.md"
+license = "Apache-2.0"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+reqwest = { version = "0.12.15", features = ["json"] }
+serde = { version = "1.0.219", features = ["serde_derive"] }
+serde_json = "1.0.117"
+erased-serde = "0.4"
+once_cell = "1.21.3"
+tokio = { version = "1.44.2", features = ["full"] }
+
