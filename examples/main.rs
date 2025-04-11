@@ -1,5 +1,5 @@
 
-use yookassa_rs::{payment::Payment, prelude::*};
+use yookassa_rs::{payment::ResponsePayments, prelude::*};
 use reqwest::Method;
 
 #[tokio::main]
@@ -13,8 +13,8 @@ async fn main() {
         .build();
 
     let resp = client
-        .request(Method::GET, "/payments/5463")
-        .send::<Payment>()
+        .request(Method::GET, "/payments")
+        .send::<ResponsePayments>()
         .await;
 
     println!("{:?}", resp);

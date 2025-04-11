@@ -50,7 +50,7 @@ impl<'a> YookassaRequestBuilder<'a> {
         self
     }
 
-    pub fn headers<K, V>(mut self, headers: HeaderMap) -> Self {
+    pub fn headers(mut self, headers: HeaderMap) -> Self {
         self.headers = Some(headers);
         self
     }
