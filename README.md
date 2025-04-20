@@ -3,9 +3,9 @@
 Simple wrapper around yookassa api
 
 Usage:
-```
-use yookassa_rs::prelude::{payments::PaymentResponse, *};
-use reqwest::Method;
+```rust
+use yookassa_rs::prelude::*;
+use yookassa_rs::models::*;
 
 #[tokio::main]
 async fn main() {
@@ -19,10 +19,11 @@ async fn main() {
 
     let resp = client
         .request(Method::GET, "/payments")
-        .send::<PaymentsResponse>()
+        .send::<ResponsePayments>()
         .await;
 
     println!("{:?}", resp);
+    
 }
 ```
 

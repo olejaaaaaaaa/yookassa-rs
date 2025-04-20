@@ -1,9 +1,8 @@
 // Copyright (c) 2025 Oleg Pavlenko
 
 use serde::{Deserialize, Serialize};
-use crate::data::prelude::*;
+use super::*;
 
-/// Payment object yookassa see docs: https://yookassa.ru/developers/api
 #[allow(dead_code)]
 #[derive(Deserialize, Debug)]
 pub struct ResponsePayment {
@@ -40,14 +39,6 @@ pub struct RquestCreatePayments {
     pub payment_method_data: Option<PaymentMethodData>
 }
 
-/*
-
-  "type" : "list",
-  "next_cursor" : "2f6b5a75-000f-5000-9000-1f18be9c423c",
-*/
-
-
-/// PaymentMethod object yookassa see docs: https://yookassa.ru/developers/api
 #[allow(dead_code)]
 #[derive(Deserialize, Serialize, Debug)]
 pub struct PaymentMethod {

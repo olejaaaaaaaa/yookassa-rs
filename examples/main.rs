@@ -1,6 +1,6 @@
 
-use yookassa_rs::{payment::ResponsePayments, prelude::*};
-use reqwest::Method;
+use yookassa_rs::prelude::*;
+use yookassa_rs::models::*;
 
 #[tokio::main]
 async fn main() {

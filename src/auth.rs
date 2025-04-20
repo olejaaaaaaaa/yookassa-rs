@@ -27,11 +27,13 @@ pub trait Authentication {
 ///
 /// # Examples
 /// ```
-/// let shop_id = "12456";
-/// let secret_key = "test_1HtqeKIGTQan9ODGjHd3IXTa5v1U34TU0JDiqUbsGj4";
-/// let client: YookassaClient<BasicAuth> = YookassaClientBuilder::default()
-///     .auth(BasicAuth::new(secret_key, shop_id))
-///     .build();
+/// fn main() {
+///     let shop_id = "12456";
+///     let secret_key = "test_1HtqeKIGTQan9ODGjHd3IXTa5v1U34TU0JDiqUbsGj4";
+///     let client: YookassaClient<BasicAuth> = YookassaClientBuilder::default()
+///         .auth(BasicAuth::new(secret_key, shop_id))
+///         .build();
+/// }
 /// ```
 #[derive(Clone)]
 pub struct BasicAuth {
@@ -59,10 +61,12 @@ impl Authentication for BasicAuth {
 ///
 /// # Examples
 /// ```
-/// let token = "679hfddjk-238238dsg-123fdfhr";
-/// let client: YookassaClient<OAuth> = YookassaClientBuilder::default()
-///     .auth(OAuth::new(token))
-///     .build();
+/// fn main() {
+///     let token = "679hfddjk-238238dsg-123fdfhr";
+///     let client: YookassaClient<OAuth> = YookassaClientBuilder::default()
+///         .auth(OAuth::new(token))
+///         .build();
+/// }
 /// ```
 pub struct OAuth {
     pub token: String

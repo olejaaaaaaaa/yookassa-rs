@@ -1,14 +1,16 @@
 // Copyright (c) 2025 Oleg Pavlenko
 
-pub const BASE_URL: &str = "https://api.yookassa.ru/v3";
+const BASE_URL: &str = "https://api.yookassa.ru/v3";
 
 mod error;
 mod client;
 mod auth;
 mod api;
-mod data;
+mod model;
 
-pub use data::*;
+pub mod models {
+    pub use crate::model::*;
+}
 
 pub mod prelude {
     pub use super::error::*;

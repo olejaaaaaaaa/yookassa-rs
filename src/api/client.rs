@@ -19,7 +19,7 @@ pub static DEFAULT_CLIENT: Lazy<Arc<Client>> = Lazy::new(|| {
 pub struct YookassaRequestBuilder<'a> {
     client: Arc<Client>,
     auth: &'a dyn Authentication,
-    path: &'a str,
+    path: String,
     method: Method,
     query: Option<&'a dyn Serialize>,
     json: Option<&'a dyn Serialize>,
@@ -28,7 +28,7 @@ pub struct YookassaRequestBuilder<'a> {
 
 impl<'a> YookassaRequestBuilder<'a> {
 
-    pub fn new(client: Arc<Client>, path: &'a str, method: Method, auth: &'a dyn Authentication) -> Self {
+    pub fn new(client: Arc<Client>, path: String, method: Method, auth: &'a dyn Authentication) -> Self {
         Self {
             client,
             path,
@@ -78,11 +78,11 @@ impl<'a> YookassaRequestBuilder<'a> {
             Ok(resp) => { 
                 if resp.status() == StatusCode::OK {
                     let json = resp.json::<K>().await;
-                    if let Ok(json) = json {
-                        return Ok(json);
-                    } else {
-                        return Err(YookassaError::Reqwest(json.err().unwrap()));
+                    match json {
+                        Ok(json) => Ok(json),
+                        Err(err) => Err(YookassaError::Json(err))
                     }
+
                 } else {
                     return Err(YookassaError::Code(resp.status()));
                 }
@@ -111,8 +111,8 @@ impl<S: Authentication> YookassaClient<S> {
         self
     }
 
-    pub fn request(&self, method: Method, path: &'static str) -> YookassaRequestBuilder {
-        YookassaRequestBuilder::new(self.client.clone(), path, method, &self.auth)
+    pub fn request<T: AsRef<str>>(&self, method: Method, path: T) -> YookassaRequestBuilder {
+        YookassaRequestBuilder::new(self.client.clone(), path.as_ref().to_string(), method, &self.auth)
     }
 
 }

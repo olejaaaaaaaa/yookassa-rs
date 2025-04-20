@@ -9,4 +9,6 @@ pub enum YookassaError {
     Reqwest(reqwest::Error),
     // Any code except 200
     Code(reqwest::StatusCode),
+    // Json
+    Json(reqwest::Error)
 }

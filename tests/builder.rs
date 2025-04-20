@@ -6,14 +6,9 @@ const SECRET_KEY: &str = "test_1HtqeKIGTQan9ODGjHdfIXTaTv1U3yTU0JDiqUbsGj4";
 #[cfg(test)]
 mod tests {
   
-    use reqwest::header::HeaderMap;
-    use reqwest::header::HeaderValue;
-    use reqwest::Method;
     use uuid::Uuid;
-    use yookassa_rs::amount::Amount;
-    use yookassa_rs::confirmation::Confirmation;
+    use yookassa_rs::models::*;
     use yookassa_rs::prelude::*;
-    use yookassa_rs::payment::*;
 
     use crate::SECRET_KEY;
     use crate::SHOP_ID;
