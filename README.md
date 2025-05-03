@@ -28,9 +28,9 @@ async fn main() {
 ```
 
 How to add to own project?
-```
+```rust
 [dependencies]
-yookassa_rs = { git = "https://github.com/olejaaaaaaaa/yookassa-rs" }
+yookassa_rs = "1.0.1"
 ```
 
 
