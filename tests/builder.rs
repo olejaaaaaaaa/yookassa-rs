@@ -49,10 +49,10 @@ mod tests {
             .request(Method::POST, "/payments")
             .headers(header)
             .json(&RequestCreatePayments {
-                amount: Some(Amount {
+                amount: Amount {
                     value: "100".into(),
                     currency: "RUB".into(),
-                }),
+                },
                 confirmation: Some(Confirmation {
                     r#type: "redirect".into(),
                     return_url: "https://www.exmaple.com".into()

@@ -107,25 +107,6 @@ pub struct ResponsePayments {
     pub items: Vec<ResponsePayment>,
 }
 
-/// Параметры создания платежа.
-///
-/// Используется при вызове `POST /payments`.
-#[allow(dead_code)]
-#[derive(Deserialize, Serialize, Debug, Default)]
-pub struct RequestCreatePayments {
-    /// Сумма к списанию. Обязательный параметр.
-    pub amount: Option<Amount>,
-
-    /// Комментарий или назначение платежа (до 128 символов).
-    pub description: Option<String>,
-
-    /// Параметры сценария подтверждения платежа (redirect, embedded, mobile_application и т.д.).
-    pub confirmation: Option<Confirmation>,
-
-    /// Данные о способе оплаты, если он ещё не сохранён в системе.
-    pub payment_method_data: Option<PaymentMethodData>,
-}
-
 /// Детали сохранённого способа оплаты, использованного клиентом.
 ///
 /// Присутствуют, если пользователь выбрал сохранённую карту, кошелёк и т.д.
