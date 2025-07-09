@@ -48,7 +48,7 @@ mod tests {
         let resp = client
             .request(Method::POST, "/payments")
             .headers(header)
-            .json(&RquestCreatePayments {
+            .json(&RequestCreatePayments {
                 amount: Some(Amount {
                     value: "100".into(),
                     currency: "RUB".into(),

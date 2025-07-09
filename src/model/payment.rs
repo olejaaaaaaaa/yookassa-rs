@@ -6,33 +6,33 @@ use super::*;
 #[allow(dead_code)]
 #[derive(Deserialize, Debug)]
 pub struct ResponsePayment {
-    id: Option<String>,
-    status: Option<String>,
-    amount: Option<Amount>,
-    income_amount: Option<IncomeAmount>,
-    description: Option<String>,
-    recipient: Option<Recipient>,
-    payment_method: Option<PaymentMethod>,
-    captured_at: Option<String>,
-    created_at: Option<String>,
-    test: Option<bool>,
-    refunded_amount: Option<RefundedAmount>,
-    paid: Option<bool>,
-    refundable: Option<bool>,
-    metadata: Option<serde_json::Value>
+    pub id: Option<String>,
+    pub status: Option<String>,
+    pub amount: Option<Amount>,
+    pub income_amount: Option<IncomeAmount>,
+    pub description: Option<String>,
+    pub recipient: Option<Recipient>,
+    pub payment_method: Option<PaymentMethod>,
+    pub captured_at: Option<String>,
+    pub created_at: Option<String>,
+    pub test: Option<bool>,
+    pub refunded_amount: Option<RefundedAmount>,
+    pub paid: Option<bool>,
+    pub refundable: Option<bool>,
+    pub metadata: Option<serde_json::Value>
 }
 
 #[allow(dead_code)]
 #[derive(Deserialize, Debug)]
 pub struct ResponsePayments {
-    r#type: String,
-    next_cursor: String,
-    items: Vec<ResponsePayment>
+    pub r#type: String,
+    pub next_cursor: String,
+    pub items: Vec<ResponsePayment>
 }
 
 #[allow(dead_code)]
 #[derive(Deserialize, Serialize, Debug, Default)]
-pub struct RquestCreatePayments {
+pub struct RequestCreatePayments {
     pub amount: Option<Amount>,
     pub description: Option<String>,
     pub confirmation: Option<Confirmation>,
