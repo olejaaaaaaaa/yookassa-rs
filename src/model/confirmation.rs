@@ -1,4 +1,4 @@
-// Copyright (c) 2025 Oleg Pavlenko
+// Copyright (c) 2025 Oleg Pavlenko and other contributors
 
 use serde::{Deserialize, Serialize};
 

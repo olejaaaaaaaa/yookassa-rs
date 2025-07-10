@@ -1,76 +1,57 @@
+// Copyright (c) 2025 Oleg Pavlenko and other contributors
+
 use std::collections::HashMap;
 use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use super::*;
 
-/// Параметры создания платежа (`POST /v3/payments`).
-///
-/// Большинство полей опциональны — передаёшь только то,
-/// что нужно под твой сценарий (одностадийный/двустадийный,
-/// сохранение карты, чек, сплит-платёж и т. д.).
+/// Параметры создания платежа (`POST /payments`).
 #[allow(dead_code)]
 #[derive(Deserialize, Serialize, Debug, Default)]
 pub struct RequestCreatePayments {
     /// Сумма к списанию с плательщика
-    /// (объект `Amount` — `value` + `currency`, обязательный).
     pub amount: Amount,
-
     /// Описание транзакции (до 128 символов) — видно в кабинете
     /// магазина и плательщику в выписке.
     pub description: Option<String>,
-
     /// Данные для формирования фискального чека 54-ФЗ.
     pub receipt: Option<Receipt>,
-
     /// Если нужно провести платёж в пользу другого суб-магазина
     /// (маркетплейс-схема) — указываешь `gateway_id`.
     pub recipient: Option<Recipient>,
-
     /// Токен, полученный в мобильном/JS-SDK
     /// (`payment_token` ↔ старый `payment_token`/`cps_token`).
     pub payment_token: Option<String>,
-
     /// Данные о способе оплаты, если он ещё **не** сохранён
     /// (пример: `{ "type": "bank_card" }`).
     pub payment_method_data: Option<PaymentMethodData>,
-
     /// Сценарий подтверждения (`redirect`, `embedded`,
     /// `mobile_application`, `qr_code`, …).
     pub confirmation: Option<Confirmation>,
-
     /// `true` — сохранить карту/кошелёк покупателя
     /// для повторных списаний. Требует договора «Сохранённые платежи».
     pub save_payment_method: Option<bool>,
-
     /// `true` — списать деньги сразу (одностадийно);
     /// `false` — только заблокировать, позже вызвать `POST /capture`
     /// (двустадийная схема). :contentReference[oaicite:0]{index=0}
     pub capture: Option<bool>,
-
     /// IP-адрес клиента в формате IPv4/IPv6.
     pub client_ip: Option<String>,
-
     /// Произвольные метаданные (до 16 KB), хранятся «как есть».
     pub metadata: Option<HashMap<String, String>>,
-
     /// Данные авиабилета (если продаёшь перелёты).
     pub airline: Option<Airline>,
-
     /// Список распределений денег между суб-аккаунтами
     /// (сплит-платёж).
     pub transfers: Option<Vec<Transfer>>,
-
     /// Объект Safe Deal (резервирование средств до выполнения услуги).
     pub deal: Option<Deal>,
-
     /// Идентификатор клиента в твоей CRM/системе лояльности.
     pub merchant_customer_id: Option<String>,
-
     /// Доп-настройки заказа для Системы быстрых платежей (СБП)
     /// или BNPL-схем. Если не используешь — опусти.
     pub payment_order: Option<Value>,
-
     /// Объект получателя при передаче реквизитов напрямую
     /// (редкий кейс — escrow, C2C-маркетплейсы).
     pub receiver: Option<Value>,
@@ -82,22 +63,16 @@ pub struct RequestCreatePayments {
 pub struct Receipt {
     /// Данные покупателя (email, телефон, ИНН, Ф. И. О.).
     pub customer: Option<Customer>,
-
     /// Линейка товаров/услуг (минимум один элемент для чека).
     pub items: Vec<Items>,
-
     /// Телефон покупателя (если не заполнен в `customer`).
     pub phone: Option<String>,
-
     /// Email покупателя (если не заполнен в `customer`).
     pub email: Option<String>,
-
     /// Код системы налогообложения магазина (ОСН = 1, УСН = 2, …).
     pub tax_system_code: Option<i32>,
-
     /// Отраслевые реквизиты чека (алкоголь, маркировка, лекарства).
     pub receipt_industry_details: Option<Vec<Industry>>,
-
     /// Операционные реквизиты (применяются к всему чеку).
     pub receipt_operational_details: Option<Operation>,
 }

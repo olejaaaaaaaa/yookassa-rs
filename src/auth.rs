@@ -1,4 +1,4 @@
-// Copyright (c) 2025 Oleg Pavlenko
+// Copyright (c) 2025 Oleg Pavlenko and other contributors
 
 use reqwest::RequestBuilder;
 
@@ -24,7 +24,7 @@ use reqwest::RequestBuilder;
 /// }
 ///
 /// ```
-pub trait Authentication: Send + Sync {
+pub trait Authentication {
     fn apply(&self, request: RequestBuilder) -> RequestBuilder;
 }
 
@@ -34,7 +34,7 @@ pub trait Authentication: Send + Sync {
 /// ```
 /// fn main() {
 ///     use yookassa_rs::prelude::{BasicAuth, YookassaClient, YookassaClientBuilder};
-/// let shop_id = "12456";
+///     let shop_id = "12456";
 ///     let secret_key = "test_1HtqeKIGTQan9ODGjHd3IXTa5v1U34TU0JDiqUbsGj4";
 ///     let client: YookassaClient<BasicAuth> = YookassaClientBuilder::default()
 ///         .auth(BasicAuth::new(secret_key, shop_id))
@@ -62,14 +62,13 @@ impl Authentication for BasicAuth {
     }
 }
 
-
 /// Struct contain a OAuth 
 ///
 /// # Examples
 /// ```
 /// fn main() {
 ///     use yookassa_rs::prelude::{OAuth, YookassaClient, YookassaClientBuilder};
-/// let token = "679hfddjk-238238dsg-123fdfhr";
+///     let token = "679hfddjk-238238dsg-123fdfhr";
 ///     let client: YookassaClient<OAuth> = YookassaClientBuilder::default()
 ///         .auth(OAuth::new(token))
 ///         .build();

@@ -26,11 +26,21 @@ mod tests {
     #[tokio::test]
     async fn get_payments() {
 
+        let client = YookassaClientBuilder::default()
+            .auth(BasicAuth::new(SECRET_KEY, SHOP_ID))
+            .build();
+
+        let resp = client
+            .request(Method::GET, "/payments")
+            .send::<ResponsePayments>()
+            .await;
+
+        assert_eq!(resp.is_ok(), true);
     }
 
     #[tokio::test]
     async fn builder() {
-        
+
     }
 
     #[tokio::test]
@@ -44,7 +54,7 @@ mod tests {
         header.insert("Idempotence-Key", HeaderValue::from_str(&Uuid::new_v4().to_string()).unwrap());
         header.insert("Content-Type", HeaderValue::from_str("application/json").unwrap());
 
-        let id = "2f8649e5-000f-5001-8000-1329b2b119fc";
+        let _id = "2f8649e5-000f-5001-8000-1329b2b119fc";
         let resp = client
             .request(Method::POST, "/payments")
             .headers(header)
@@ -65,8 +75,8 @@ mod tests {
             })
             .send::<serde_json::Value>()
             .await;
-    
-        println!("{:?}", resp);
+
+        assert_eq!(resp.is_ok(), true);
     }
 
 }

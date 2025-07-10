@@ -1,12 +1,12 @@
-// Copyright (c) 2025 Oleg Pavlenko
+// Copyright (c) 2025 Oleg Pavlenko and other contributors
 
 use reqwest::Client;
 use crate::auth::Authentication;
-use std::sync::Arc;
 use crate::api::client::DEFAULT_CLIENT;
 
+#[derive(Clone)]
 pub struct YookassaClient<S: Authentication> {
-    pub client: Arc<Client>,
+    pub client: Client,
     pub auth: S
 }
 
@@ -20,7 +20,7 @@ pub struct YookassaClient<S: Authentication> {
 /// 
 #[derive(Default)]
 pub struct YookassaClientBuilder<S: Authentication> {
-    pub client: Option<Arc<Client>>,
+    pub client: Option<Client>,
     pub auth: Option<S>
 }
 
@@ -31,7 +31,7 @@ impl<S: Authentication> YookassaClientBuilder<S> {
     }
 
     pub fn client(mut self, client: Client) -> Self {
-        self.client = Some(Arc::new(client));
+        self.client = Some(client);
         self
     }
 

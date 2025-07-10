@@ -1,4 +1,4 @@
-// Copyright (c) 2025 Oleg Pavlenko
+// Copyright (c) 2025 Oleg Pavlenko and other contributors
 
 const BASE_URL: &str = "https://api.yookassa.ru/v3";
 

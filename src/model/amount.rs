@@ -1,5 +1,6 @@
-use serde::*;
+// Copyright (c) 2025 Oleg Pavlenko and other contributors
 
+use serde::{Serialize, Deserialize};
 
 #[allow(dead_code)]
 #[derive(Deserialize, Serialize, Debug, Default)]
