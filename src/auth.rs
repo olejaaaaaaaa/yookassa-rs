@@ -36,8 +36,7 @@ pub trait Authentication {
 ///     use yookassa_rs::prelude::{BasicAuth, YookassaClient, YookassaClientBuilder};
 ///     let shop_id = "12456";
 ///     let secret_key = "test_1HtqeKIGTQan9ODGjHd3IXTa5v1U34TU0JDiqUbsGj4";
-///     let client: YookassaClient<BasicAuth> = YookassaClientBuilder::default()
-///         .auth(BasicAuth::new(secret_key, shop_id))
+///     let client: YookassaClient<BasicAuth> = YookassaClientBuilder::new(BasicAuth::new(secret_key, shop_id))
 ///         .build();
 /// }
 /// ```
