@@ -7,19 +7,24 @@ use reqwest::RequestBuilder;
 /// # Examples
 ///
 /// ```
+/// use reqwest::RequestBuilder;
+/// use uuid::Uuid;
+///
+/// use yookassa_rs::prelude::Authentication;
+///
 /// struct MyAuth {
 ///     id: Uuid,
 ///     key: Uuid
 /// }
-/// 
+///
 /// impl Authentication for MyAuth {
 ///     fn apply(&self, request: RequestBuilder) -> RequestBuilder {
 ///         request.basic_auth(self.id.clone().to_string(), Some(self.key.clone().to_string()))
 ///     }
 /// }
-/// 
+///
 /// ```
-pub trait Authentication {
+pub trait Authentication: Send + Sync {
     fn apply(&self, request: RequestBuilder) -> RequestBuilder;
 }
 
@@ -28,7 +33,8 @@ pub trait Authentication {
 /// # Examples
 /// ```
 /// fn main() {
-///     let shop_id = "12456";
+///     use yookassa_rs::prelude::{BasicAuth, YookassaClient, YookassaClientBuilder};
+/// let shop_id = "12456";
 ///     let secret_key = "test_1HtqeKIGTQan9ODGjHd3IXTa5v1U34TU0JDiqUbsGj4";
 ///     let client: YookassaClient<BasicAuth> = YookassaClientBuilder::default()
 ///         .auth(BasicAuth::new(secret_key, shop_id))
@@ -62,7 +68,8 @@ impl Authentication for BasicAuth {
 /// # Examples
 /// ```
 /// fn main() {
-///     let token = "679hfddjk-238238dsg-123fdfhr";
+///     use yookassa_rs::prelude::{OAuth, YookassaClient, YookassaClientBuilder};
+/// let token = "679hfddjk-238238dsg-123fdfhr";
 ///     let client: YookassaClient<OAuth> = YookassaClientBuilder::default()
 ///         .auth(OAuth::new(token))
 ///         .build();

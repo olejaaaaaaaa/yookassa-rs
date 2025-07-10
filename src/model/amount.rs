@@ -2,7 +2,7 @@ use serde::*;
 
 
 #[allow(dead_code)]
-#[derive(Deserialize, Serialize, Debug)]
+#[derive(Deserialize, Serialize, Debug, Default)]
 pub struct Amount {
     pub value: String,
     pub currency: String
