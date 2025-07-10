@@ -1,7 +1,7 @@
 // Copyright (c) 2025 Oleg Pavlenko
 
-use crate::{auth::Authentication, client::{YookassaClient, YookassaClientBuilder}, error::YookassaError, BASE_URL};
-use reqwest::{header::HeaderMap, Client, Method, StatusCode};
+use crate::{auth::Authentication, client::{YookassaClient, YookassaClientBuilder}, error::AnyError, BASE_URL};
+use reqwest::{header::HeaderMap, Client, Method};
 use erased_serde::Serialize;
 use once_cell::sync::Lazy;
 use serde::de::DeserializeOwned;
@@ -55,7 +55,7 @@ impl<'a> YookassaRequestBuilder<'a> {
         self
     }
 
-    pub async fn send<K: DeserializeOwned>(&self) -> Result<K, YookassaError> {
+    pub async fn send<K: DeserializeOwned>(&self) -> Result<K, AnyError> {
 
         let client = self.client.request(self.method.clone(), format!("{}{}", BASE_URL, self.path));
         let mut request = self.auth.apply(client);
@@ -73,24 +73,10 @@ impl<'a> YookassaRequestBuilder<'a> {
             request = request.headers(headers.clone())
         }
 
-        let resp = request.send().await;
-        match resp {
-            Ok(resp) => { 
-                if resp.status() == StatusCode::OK {
-                    let json = resp.json::<K>().await;
-                    match json {
-                        Ok(json) => Ok(json),
-                        Err(err) => Err(YookassaError::Json(err))
-                    }
-
-                } else {
-                    return Err(YookassaError::Code(resp.status()));
-                }
-            },
-            Err(err) => { Err(YookassaError::Reqwest(err)) }
-        }
-
+        let resp = request.send().await?;
+        let json = resp.json::<K>().await?;
         
+        Ok(json)
     }
 }
 
