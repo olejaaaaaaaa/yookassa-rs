@@ -68,8 +68,7 @@ impl Authentication for BasicAuth {
 /// fn main() {
 ///     use yookassa_rs::prelude::{OAuth, YookassaClient, YookassaClientBuilder};
 ///     let token = "679hfddjk-238238dsg-123fdfhr";
-///     let client: YookassaClient<OAuth> = YookassaClientBuilder::default()
-///         .auth(OAuth::new(token))
+///     let client: YookassaClient<OAuth> = YookassaClientBuilder::new(OAuth::new(token))
 ///         .build();
 /// }
 /// ```
