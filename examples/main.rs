@@ -8,8 +8,8 @@ async fn main() {
     let shop_id = "1045131";
     let secret_key = "test_1HtqeKIGTQan9ODGjHdfIXTaTv1U3yTU0JDiqUbsGj4";
 
-    let client = YookassaClientBuilder::default()
-        .auth(BasicAuth::new(secret_key, shop_id))
+    let client: YookassaClient<BasicAuth> = YookassaClientBuilder::new(
+        BasicAuth::new(secret_key, shop_id))
         .build();
 
     let resp = client
@@ -18,5 +18,5 @@ async fn main() {
         .await;
 
     println!("{:?}", resp);
-    
+
 }

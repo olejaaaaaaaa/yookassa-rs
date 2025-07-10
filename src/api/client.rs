@@ -114,8 +114,7 @@ impl<'a> YookassaRequestBuilder<'a> {
 impl<S: Authentication> YookassaClient<S> {
 
     pub fn new(auth: S) -> Self {
-        YookassaClientBuilder::default()
-            .auth(auth)
+        YookassaClientBuilder::new(auth)
             .build()
     }
 
@@ -128,8 +127,8 @@ impl<S: Authentication> YookassaClient<S> {
         self
     }
 
-    pub fn request<T: AsRef<str>>(&self, method: Method, path: T) -> YookassaRequestBuilder {
-        YookassaRequestBuilder::new(self.client.clone(), path.as_ref().to_string(), method, &self.auth)
+    pub fn request<T: ToString>(&self, method: Method, path: T) -> YookassaRequestBuilder {
+        YookassaRequestBuilder::new(self.client.clone(), path.to_string(), method, &self.auth)
     }
 
 }

@@ -19,15 +19,14 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn get_paymant() {
+    async fn get_payment() {
 
     }
 
     #[tokio::test]
     async fn get_payments() {
 
-        let client = YookassaClientBuilder::default()
-            .auth(BasicAuth::new(SECRET_KEY, SHOP_ID))
+        let client = YookassaClientBuilder::new(BasicAuth::new(SECRET_KEY, SHOP_ID))
             .build();
 
         let resp = client
@@ -46,10 +45,9 @@ mod tests {
     #[tokio::test]
     async fn create_payment() {
 
-        let client = YookassaClientBuilder::default()
-            .auth(BasicAuth::new(SECRET_KEY, SHOP_ID))
+        let client = YookassaClientBuilder::new(BasicAuth::new(SECRET_KEY, SHOP_ID))
             .build();
-    
+
         let mut header = HeaderMap::new();
         header.insert("Idempotence-Key", HeaderValue::from_str(&Uuid::new_v4().to_string()).unwrap());
         header.insert("Content-Type", HeaderValue::from_str("application/json").unwrap());
