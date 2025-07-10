@@ -24,7 +24,7 @@ use reqwest::RequestBuilder;
 /// }
 ///
 /// ```
-pub trait Authentication {
+pub trait Authentication: Send + Sync {
     fn apply(&self, request: RequestBuilder) -> RequestBuilder;
 }
 
