@@ -21,8 +21,8 @@ pub struct YookassaRequestBuilder<'a> {
     auth: &'a dyn Authentication,
     path: String,
     method: Method,
-    query: Option<&'a dyn Serialize>,
-    json: Option<&'a dyn Serialize>,
+    query: Option<&'a (dyn Serialize + Sync)>,
+    json: Option<&'a (dyn Serialize + Sync)>,
     headers: Option<HeaderMap>,
 }
 
@@ -40,13 +40,19 @@ impl<'a> YookassaRequestBuilder<'a> {
         }
     }
 
-    pub fn query<T: Serialize>(mut self, query: &'a T) -> Self {
-        self.query = Some(query);
+    pub fn query<T>(mut self, q: &'a T) -> Self
+    where
+        T: Serialize + Sync,
+    {
+        self.query = Some(q);
         self
     }
 
-    pub fn json<T: Serialize>(mut self, json: &'a T) -> Self {
-        self.json = Some(json);
+    pub fn json<T>(mut self, j: &'a T) -> Self
+    where
+        T: Serialize + Sync,
+    {
+        self.json = Some(j);
         self
     }
 
